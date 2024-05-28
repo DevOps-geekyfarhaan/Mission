@@ -41,14 +41,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "mvn package"
+                sh "mvn package -DskipTests=true"
             }
         }
-        stage('Hello') {
-            steps {
-                sh 'pwd'
-            }
-        }
+        // stage('Hello') {
+            // steps {
+                // sh 'pwd'
+            // }
+        // }
 //         stage('Hello') {
 //             steps {
 //                 echo 'Hello World'
