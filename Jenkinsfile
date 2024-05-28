@@ -31,25 +31,28 @@ pipeline {
                 sh "trivy fs --format table -o trivy-fs-report.html ."
             }
         }
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         echo 'Hello World'
-        //     }
-        // }
-        // stage('Hello') {
-        //     steps {
-        //         echo 'Hello World'
-        //     }
-        // }
-        // stage('Hello') {
-        //     steps {
-        //         echo 'Hello World'
-        //     }
-        // }
-        // stage('Hello') {
-        //     steps {
-        //         echo 'Hello World'
-        //     }
-        // }
-    }
-}
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv(credentialsId: 'sonar') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Mission -Dsonar.projectName=Mission \
+                            -Dsonar.java.binaries=. '''
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "mvn package"
+            }
+        }
+        stage('Hello') {
+            steps {
+                sh 'pwd'
+            }
+//         }
+//         stage('Hello') {
+//             steps {
+//                 echo 'Hello World'
+//             }
+//         }
+//     }
+// }
