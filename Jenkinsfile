@@ -62,7 +62,7 @@ pipeline {
         }
         stage('Trivy Scan Image') {
             steps {
-                sh "trivy fs --format table -o trivy-image-report.html geekyfarhaan/mission:latest"
+                sh "trivy image --format table -o trivy-image-report.html geekyfarhaan/mission:latest"
             }
         }
         stage('Publish Docker Image') {
