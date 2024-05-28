@@ -44,14 +44,20 @@ pipeline {
                 sh "mvn package -DskipTests=true"
             }
         }
-        stage('Hello') {
+        stage('Deploy Artifacts to Nexus') {
             steps {
-                sh 'pwd'
+                withMaven(globalMavenSettingsConfig: 'maven-setting', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
+                    sh "mvn deploy -DskipTests=true"
+                }
             }
         }
-        stage('Hello') {
+        stage('Build & Tag Docker Image') {
             steps {
-                echo 'Hello World'
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh "docker build -t geekyfarhaan/mission:latest ."
+                    }
+                }
             }
         }
     }
