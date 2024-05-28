@@ -31,11 +31,11 @@ pipeline {
                 sh "trivy fs --format table -o trivy-fs-report.html ."
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                echo 'Hello World'
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         echo 'Hello World'
+        //     }
+        // }
         // stage('Hello') {
         //     steps {
         //         echo 'Hello World'
