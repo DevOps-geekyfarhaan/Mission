@@ -26,7 +26,7 @@ pipeline {
                 sh "mvn test -DskipTests=True"
             }
         }
-        stage('Trivy Scan') {
+        stage('Trivy Scan FS') {
             steps {
                 sh "trivy fs --format table -o trivy-fs-report.html ."
             }
@@ -56,6 +56,20 @@ pipeline {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
                         sh "docker build -t geekyfarhaan/mission:latest ."
+                    }
+                }
+            }
+        }
+        stage('Trivy Scan Image') {
+            steps {
+                sh "trivy fs --format table -o trivy-image-report.html geekyfarhaan/mission:latest"
+            }
+        }
+        stage('Publish Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh "docker push geekyfarhaan/mission:latest"
                     }
                 }
             }
