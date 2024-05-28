@@ -33,7 +33,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar-scanner') {
+                withSonarQubeEnv() {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Mission -Dsonar.projectName=Mission -Dsonar.java.binaries=. 
                     '''
                 }
