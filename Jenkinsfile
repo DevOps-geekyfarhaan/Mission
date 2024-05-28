@@ -44,15 +44,15 @@ pipeline {
                 sh "mvn package -DskipTests=true"
             }
         }
-        // stage('Hello') {
-            // steps {
-                // sh 'pwd'
-            // }
-        // }
-//         stage('Hello') {
-//             steps {
-//                 echo 'Hello World'
-//             }
-//         }
+        stage('Hello') {
+            steps {
+                sh 'pwd'
+            }
+        }
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
     }
 }
