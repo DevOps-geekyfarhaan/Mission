@@ -48,11 +48,11 @@ pipeline {
             steps {
                 sh 'pwd'
             }
-//         }
+        }
 //         stage('Hello') {
 //             steps {
 //                 echo 'Hello World'
 //             }
 //         }
-//     }
-// }
+    }
+}
